@@ -4,7 +4,7 @@ export const Header = () => {
     const location = useLocation()
     const { pathname } = location
     return (
-        <header className="flex flex-col items-center h-screen gap-8">
+        <header className="flex flex-col md:flex-row md:justify-around md:h-auto items-center h-auto mb-16 gap-8">
             <div className="flex justify-center my-8">
                 <img className="rounded-xl w-44" src="/public/petshop logo dilan.png" alt="Logo Petshop" />
             </div>
