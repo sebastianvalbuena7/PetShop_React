@@ -1,9 +1,10 @@
 import usePetshop from "../hooks/usePetShop"
+import { ProductCart } from "../components/ProductCart"
 
 export const Carrito = () => {
     const { productsCarrito } = usePetshop()
 
     return (
-        <div>{productsCarrito.map(product => <li className="text-white" key={product._id}>{product.producto}</li>)}</div>
+        productsCarrito.length == 0 ? <h2 className="text-black font-bold text-xl text-center">No hay productos en el carrito</h2> : <div>{productsCarrito.map(product => <ProductCart key={product._id} product={product}/>)}</div>
     )
 }

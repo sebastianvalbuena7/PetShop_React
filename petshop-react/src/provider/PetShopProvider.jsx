@@ -6,17 +6,14 @@ const PetShopContext = createContext()
 const PetShopProvider = ({ children }) => {
     const [productsPet, setProductsPet] = useState([])
     const [productsCarrito, setProductsCarrito] = useState([])
-    const [productsPetLoaded, setProductsPetLoaded] = useState(false)
+    const [productsRandom, setProductsRandom] = useState([])
 
     useEffect(() => {
         const peticionApi = async () => {
-            try {
-                const { data } = await axios.get(import.meta.env.VITE_API)
-                setProductsPet(data)
-                setProductsPetLoaded(true)
-            } catch (error) {
-                console.log(error)
-            }
+            const { data } = await axios.get(import.meta.env.VITE_API)
+            setProductsPet(data)
+            let productArrayRandom = data.sort(() => Math.random() - 0.5).splice(0, 4)
+            setProductsRandom(productArrayRandom)
         }
         peticionApi()
     }, [])
@@ -25,12 +22,18 @@ const PetShopProvider = ({ children }) => {
         setProductsCarrito([...productsCarrito, product])
     }
 
+    const handleDeleteCart = id => {
+        let productsDeleted = productsCarrito.filter(product => product._id !== id)
+        setProductsCarrito(productsDeleted)
+    }
+
     return (
         <PetShopContext.Provider value={{
             productsPet,
             productsCarrito,
-            productsPetLoaded,
-            handleCart
+            handleCart,
+            productsRandom,
+            handleDeleteCart
         }}>
             {children}
         </PetShopContext.Provider>
