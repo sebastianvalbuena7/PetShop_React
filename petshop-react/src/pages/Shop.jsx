@@ -1,10 +1,14 @@
 import usePetshop from "../hooks/usePetShop"
 import { Product } from "../components/Product"
+import { Spinner } from "../components/Spinner"
 
 const Shop = () => {
-    const { productsPet } = usePetshop()
+    const { productsPet, spinnerLoad } = usePetshop()
     return (
-        <div className="flex flex-wrap justify-center gap-16">{productsPet.map(product => <Product key={product._id} product={product} />)}</div>
+        <>
+            {spinnerLoad ? <Spinner/> :             <div className="flex flex-wrap justify-center gap-16">{productsPet.map(product => <Product key={product._id} product={product} />)}</div>
+            }
+        </>
     )
 }
 
