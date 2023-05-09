@@ -20,7 +20,7 @@ const PetShopProvider = ({ children }) => {
             setSpinnerLoad(true)
             const { data } = await axios.get(import.meta.env.VITE_API)
             setProductsPet(data)
-            let productArrayRandom = data.sort(() => Math.random() - 0.5).splice(0, 4)
+            const productArrayRandom = [...data].sort(() => Math.random() - 0.5).splice(0, 4)
             setProductsRandom(productArrayRandom)
             setSpinnerLoad(false)
         }
@@ -28,13 +28,22 @@ const PetShopProvider = ({ children }) => {
     }, [])
 
     const handleCart = product => {
-        toast.success('Producto Agregado al Carrito')
-        setProductsCarrito([...productsCarrito, product])
+        const productId = productsCarrito.find(prod => prod._id === product._id)
+        if (!productId) {
+            toast.success('Producto Agregado al Carrito')
+            setProductsCarrito([...productsCarrito, product])
+            return
+        }
     }
 
     const handleDeleteCart = id => {
         let productsDeleted = productsCarrito.filter(product => product._id !== id)
         setProductsCarrito(productsDeleted)
+    }
+
+    const handleFinishBuy = () => {
+        setProductsCarrito([])
+        toast.success('Compra terminada!')
     }
 
     return (
@@ -44,7 +53,8 @@ const PetShopProvider = ({ children }) => {
             handleCart,
             productsRandom,
             handleDeleteCart,
-            spinnerLoad
+            spinnerLoad,
+            handleFinishBuy
         }}>
             {children}
         </PetShopContext.Provider>

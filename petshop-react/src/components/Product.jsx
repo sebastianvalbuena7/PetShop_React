@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom"
 import usePetshop from "../hooks/usePetShop"
 
 export const Product = ({ product }) => {
     const { handleCart } = usePetshop()
-    const { producto, categoria, precio, disponibles, imagen } = product
+    const { producto, categoria, precio, disponibles, imagen, _id } = product
 
     return (
         <>
@@ -15,7 +16,7 @@ export const Product = ({ product }) => {
                     <p className="text-gray-700 text-base">Disponibles: {disponibles}</p>
                     <div className="flex justify-center gap-2">
                         <button type="button" className="mt-4 focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 text-md font-medium rounded-lg px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-500" onClick={() => handleCart(product)}>Add Cart</button>
-                        <button type="button" className="mt-4 focus:outline-none text-white bg-indigo-400 hover:bg-indigo-500 focus:ring-4 focus:ring-yellow-300 text-md font-medium rounded-lg px-5 py-2.5 mr-2 mb-2 dark:focus:ring-indigo-500" onClick={() => handleCart(product)}>See More</button>
+                        <Link to={`/seeMore/${_id}`} className="mt-4 focus:outline-none text-white bg-indigo-400 hover:bg-indigo-500 focus:ring-4 focus:ring-yellow-300 text-md font-medium rounded-lg px-5 py-2.5 mr-2 mb-2 dark:focus:ring-indigo-500">See More</Link>
                     </div>
                 </div>
             </div>
