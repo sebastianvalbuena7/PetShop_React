@@ -6,7 +6,12 @@ const Shop = () => {
     const { productsPet, spinnerLoad } = usePetshop()
     return (
         <>
-            {spinnerLoad ? <Spinner /> : <div className="flex flex-wrap justify-center gap-16">{productsPet.map(product => <Product key={product._id} product={product} />)}</div>
+            {spinnerLoad ? <Spinner /> : <div className="flex flex-wrap justify-center gap-16">
+                {/* <select name="" id="">
+                    <option value="">d</option>
+                </select> */}
+                {productsPet.map(product => <Product key={product._id} product={product} />)}
+            </div>
             }
         </>
     )
